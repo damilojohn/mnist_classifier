@@ -1,0 +1,10 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "predict-no-auth"
+resolve_s3 = true
+s3_prefix = "predict-no-auth"
+region = "eu-west-1"
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = "Stage=\"dev\""
+image_repositories = ["PredictFunction=547882234658.dkr.ecr.eu-west-1.amazonaws.com/predictnoauth8f02f8c5/predictfunction975a0b7frepo"]
