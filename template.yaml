@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS ::Serverless-2016-10-31 
+Globals:
+    Function:
+        Timeout: 50
+        MemorySize: 5000
+    Api:
+    OpenApiVersion: 3.0.1
+Parameters:
+    Stage:
+      Type: String
+      Default: dev 
+Resources:
+    LambdaAPI:
+      Type: AWS::Serverless::Api
+      Properties:
+        StageName: !Ref Stage
+  PredictFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      PackageType: Image
+      Architectures:
+        -x86_64 
+      Events:
+        Predict:
+        Type: Api 
+        Properties:
+          RestApiId: !Ref LambdaAPI 
+          Path: /predict 
+          Method: POST 
+      Policies:
+        - Amazons3FullAccess
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./
+      DockerTag: python3.9-v1 
+  Outputs:
+    LamdaApi:
+      Description: 'API gateway endpoint url for DEV stage for Predict Lambda Function'
+          Value: !Sub "https://${LambdaAPI}.execute-api.${AWS::Region}.amazonaws.com/${Stage}/predict"
