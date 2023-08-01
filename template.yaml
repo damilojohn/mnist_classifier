@@ -35,6 +35,6 @@ Resources:
       DockerContext: ./
       DockerTag: python3.9-v1 
   Outputs:
-    LamdaApi:
-      Description: 'API gateway endpoint url for DEV stage for Predict Lambda Function'
-          Value: !Sub "https://${LambdaAPI}.execute-api.${AWS::Region}.amazonaws.com/${Stage}/predict"
+  LambdaApi:
+    Description: "API Gateway endpoint URL for Dev stage for Predict Lambda function"
+    Value: !Sub "https://${LambdaAPI}.execute-api.${AWS::Region}.amazonaws.com/${Stage}/predict"
